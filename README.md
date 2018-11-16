@@ -11,7 +11,7 @@
  
  **Direction for use**
  <ol>
-	<li>Move to **\BookOne\src\java\dit\ReaderServlet.java** </li>
+	<li>Move to <b>\BookOne\src\java\dit\ReaderServlet.java</b> </li>
   <li>Change the location for the file in which all details will be written</li>
  </ol>
  
