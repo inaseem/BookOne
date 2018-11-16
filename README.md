@@ -13,6 +13,7 @@
  <ol>
 	<li>Move to <b>\BookOne\src\java\dit\ReaderServlet.java</b> </li>
   <li>Change the location for the file in which all details will be written</li>
+	<li>Run File Dashboard.jsp</li>
  </ol>
  
  **The change to be done**
@@ -23,3 +24,5 @@
         file = new File("C:\\Users\\hp\\Desktop\\books.txt");
     }
 ```
+
+**In case of any issue feel free to open a PR**
