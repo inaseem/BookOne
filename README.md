@@ -2,7 +2,7 @@
 
 **A Project Made For Java Assignment**
 
-<img src="https://raw.githubusercontent.com/naseemali925/BookOne/master/screenshots/Capture.PNG" width="250">
+<img src="https://raw.githubusercontent.com/naseemali925/BookOne/master/screenshots/Capture.PNG">
 
 **Technologies Used**
 <ul>
