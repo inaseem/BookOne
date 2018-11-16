@@ -2,6 +2,8 @@
 
 **A Project Made For Java Assignment**
 
+<img src="https://raw.githubusercontent.com/naseemali925/Bookone/master/screenshots/Capture.png" width="250">
+
 **Technologies Used**
 <ul>
   <li>Servlets</li>
