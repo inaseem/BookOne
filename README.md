@@ -11,10 +11,11 @@
  
  **Direction for use**
  <ol>
+	<li>Move to **\BookOne\src\java\dit\ReaderServlet.java** </li>
   <li>Change the location for the file in which all details will be written</li>
  </ol>
  
- # The change to be done
+ **The change to be done**
  ```java
 	 @Override
     public void init() throws ServletException {
