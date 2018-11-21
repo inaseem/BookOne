@@ -58,7 +58,7 @@ public class ReaderServlet extends HttpServlet {
             }
         }
         request.setAttribute("booksList", getData());
-        RequestDispatcher rd = request.getRequestDispatcher("Dashboard.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("WriterServlet");
         rd.forward(request, response);
     }
 
