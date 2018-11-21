@@ -5,14 +5,11 @@
  */
 package dit;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,16 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Naseem
  */
-@WebServlet(name = "ReaderServlet", urlPatterns = {"/ReaderServlet"})
-public class ReaderServlet extends HttpServlet {
-
-    private File file;
-
-    @Override
-    public void init() throws ServletException {
-        super.init(); //To change body of generated methods, choose Tools | Templates.
-        file = new File("C:\\Users\\hp\\Desktop\\books.txt");
-    }
+@WebServlet(name = "DeleterServlet", urlPatterns = {"/DeleterServlet"})
+public class DeleterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,59 +35,24 @@ public class ReaderServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String title = request.getParameter("bookName");
-        String author = request.getParameter("authorName");
-        String isbn = request.getParameter("isbn");
-        String description = request.getParameter("description");
-        String magic = request.getParameter("magic");
-        Book book = new Book(title, author, isbn, description);
-        if (magic != null) {
-            if (magic.equals("do")) {
-                insertData(book);
-            }
-        }
-        request.setAttribute("booksList", getData());
-        RequestDispatcher rd = request.getRequestDispatcher("WriterServlet");
-        rd.forward(request, response);
+      String title=request.getParameter("title");
+      deleteBook(title);
+      response.sendRedirect("HomeServlet");
     }
-
-    private void insertData(Book book) {
+    
+     private Object deleteBook(String title) {
         try {
-            if (!file.exists()) {
-                file.createNewFile();
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/onebook", "root", "");
+            PreparedStatement ps = conn.prepareStatement("delete from book where title=?");
+            ps.setString(1, title);
+            if (ps.executeUpdate() > 0) {
+                return true;
             }
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
-            bw.append(book.toString().concat("\n"));
-            bw.flush();
-            bw.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            return e;
         }
-    }
-
-    private ArrayList<Book> getData() {
-        ArrayList<Book> books = new ArrayList<>();
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.trim().length() > 0) {
-                    books.add(getBook(line));
-                }
-            }
-            br.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return books;
-    }
-
-    private Book getBook(String data) {
-        String parts[] = data.split("#");
-        return new Book(parts[0], parts[1], parts[2], parts[3]);
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
